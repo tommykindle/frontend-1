@@ -6,7 +6,8 @@ const UserProfileCard = (props) => {
 
     return (
         <div>
-            <div></div>
+            <div>{props.person.name}</div>
+            <div>{props.person.email}</div>
         </div>
     )
 }
