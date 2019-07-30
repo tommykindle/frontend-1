@@ -23,12 +23,13 @@ function App() {
              render={props => <Form  {...props} submitUsers = {addUser}/>}/>
       <Route exact path="/" 
              render={props => users.map(person => <UserProfileCard person={person}/>)}/>
-      {/* <Route path="/edit/:id"
-             render={props => {
-               console.log(props)
-               console.log(users.find(person => person.id.toString() === props.match.params.id))
-               return <Form {...props} />
-             }} /> */}
+      <Route path="/edit/:id"
+             render={props => 
+              //  console.log(props)
+              //  console.log(users.find(person => person.id.toString() === props.match.params.id))
+              //  return 
+              <Form {...props} />
+             } />
     </div>
   );
 }
