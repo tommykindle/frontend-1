@@ -3,12 +3,27 @@ import { Formik } from "formik";
 import * as EmailValidator from "email-validator";
 import * as Yup from "yup";
 import './LoginForm.scss';
-
+import axios from 'axios';
 
 const LoginForm = () => (
   <Formik
     initialValues={{ email: "", password: "" }}
     onSubmit={(values, { setSubmitting }) => {
+      axios.post("https://bw-money-backend.herokuapp.com/createnewuser", `grant_type=password&username=${values.email}&password=${values.password}`, {
+        headers: {
+          Authorization: `Basic ${btoa('lambda-client:lambda-secret')}`,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+        .then(res => {
+          console.log('Result', res)
+          localStorage.setItem("token", res.data.access_token)
+
+        })
+        .catch(err => {
+
+          console.log(err)
+        })
       setTimeout(() => {
         console.log("Logging in", values);
         setSubmitting(false);
@@ -18,12 +33,12 @@ const LoginForm = () => (
 
     validationSchema={Yup.object().shape({
       email: Yup.string()
-        .email()
+        // .email()
         .required("Required"),
       password: Yup.string()
         .required("No password provided.")
         .min(8, "Password is too short - should be 8 chars minimum.")
-        .matches(/(?=.*[!@#\$%\^&\*]) (?=.*[A-Z])/, "Password must contain at least one uppercase character and one special character")
+      // .matches(/(?=.*[!@#\$%\^&\*]) (?=.*[A-Z])/, "Password must contain at least one uppercase character and one special character")
     })}
   >
     {props => {
