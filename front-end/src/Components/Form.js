@@ -3,8 +3,8 @@ import UserProfileCard from './UserProfileCard';
 
 const Form = (props) => {
     console.log('props', props)
-    const {submitUsers} = props
-    const [person, setPerson] = useState({name: "", email: ""})
+    const {submitUsers, initialPerson} = props
+    const [person, setPerson] = useState(initialPerson || {name: "", email: ""})
     const handleChange = event => {
         setPerson({...person, [event.target.name]: event.target.value
     })}
