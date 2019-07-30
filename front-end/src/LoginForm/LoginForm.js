@@ -69,6 +69,7 @@ const LoginForm = () => (
             <button type="submit" disabled={isSubmitting}>
               Login
           </button>
+            <button type="submit" formaction="/">SignUp</button>
           </form>
         </div>
       );
