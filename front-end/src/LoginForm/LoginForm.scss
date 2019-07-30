@@ -1,6 +1,7 @@
 body{
   background-color: #51d0de;
 }
+
 form{
  padding-top: 8em;
  box-shadow: 10px 10px 10px 10px #777;
@@ -8,8 +9,14 @@ form{
  margin: 0 auto;
  margin-top: 50px;
 background-color: white;
-max-height: 500px;
+max-height: 450px;
+
+ h1{
+  color: #51d0de;
+  margin-top: -50px;
 }
+}
+
 
 
 input {
@@ -18,7 +25,7 @@ input {
   justify-content: space-between;
   width: 30%;
   margin: 0 auto;
-   margin-bottom: 20px;
+   margin-bottom: 50px;
   padding: 10px;
   border-radius: 3px;
   border: 1px solid #777;
@@ -43,7 +50,7 @@ input.error {
 }
 
 button {
-  margin: 0 5px;
+  margin: 0 5px 30px;
   padding: 10px 15px;
   background-color:#51d0de;
   color: white;
