@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {Link} from 'react-router-dom'
 
 const UserProfileCard = (props) => {
     console.log('props', props)
@@ -8,6 +8,7 @@ const UserProfileCard = (props) => {
         <div>
             <div>{props.person.name}</div>
             <div>{props.person.email}</div>
+            <Link to={`/edit/${props.person.id}`}>Edit</Link>
         </div>
     )
 }

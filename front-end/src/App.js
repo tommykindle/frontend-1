@@ -7,12 +7,12 @@ import {Route, Link} from 'react-router-dom'
 
 function App() {
   const [users, setUsers] = useState([
-    {name: "Hong", email: "hong@123"},
-    {name: "Tom", email: "tom@456"}
+    {id:0, name: "Hong", email: "hong@123"},
+    {id:1, name: "Tom", email: "tom@456"}
   ])
 
   const addUser = person => {
-    setUsers([...users, person])
+    setUsers([...users, {...person, id: Date.now()}])
   }
 
   return (
@@ -20,9 +20,15 @@ function App() {
       <Link to="/">User Profile </Link>
       <Link to="/add"> Add User</Link>
       <Route path="/add" 
-             render={props => <Form  {...props} submitUsers = {addUser}/>}      />
+             render={props => <Form  {...props} submitUsers = {addUser}/>}/>
       <Route exact path="/" 
-             render={props => users.map(person => <UserProfileCard person={person}/>)}     />
+             render={props => users.map(person => <UserProfileCard person={person}/>)}/>
+      {/* <Route path="/edit/:id"
+             render={props => {
+               console.log(props)
+               console.log(users.find(person => person.id.toString() === props.match.params.id))
+               return <Form {...props} />
+             }} /> */}
     </div>
   );
 }
