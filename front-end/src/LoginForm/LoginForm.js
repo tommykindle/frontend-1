@@ -1,8 +1,7 @@
 import React from "react";
-import { Formik } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as EmailValidator from "email-validator";
 import * as Yup from "yup";
-
 
 const LoginForm = () => (
   <Formik
@@ -13,8 +12,6 @@ const LoginForm = () => (
         setSubmitting(false);
       }, 500);
     }}
-
-
     validationSchema={Yup.object().shape({
       email: Yup.string()
         .email()
@@ -22,7 +19,10 @@ const LoginForm = () => (
       password: Yup.string()
         .required("No password provided.")
         .min(8, "Password is too short - should be 8 chars minimum.")
-        .matches(/(?=.*[!@#\$%\^&\*]) (?=.*[A-Z])/, "Password must contain at least one uppercase character and one special character")
+        .matches(
+          /(?=.*[!@#\$%\^&\*]) (?=.*[A-Z])/,
+          "Password must contain at least one uppercase character and one special character"
+        )
     })}
   >
     {props => {
@@ -36,9 +36,9 @@ const LoginForm = () => (
         handleSubmit
       } = props;
       return (
-        <form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <label htmlFor="email">Email</label>
-          <input
+          <Field
             name="email"
             type="text"
             placeholder="Enter your email"
@@ -51,7 +51,7 @@ const LoginForm = () => (
             <div className="input-feedback">{errors.email}</div>
           )}
           <label htmlFor="email">Password</label>
-          <input
+          <Field
             name="password"
             type="password"
             placeholder="Enter your password"
@@ -66,7 +66,7 @@ const LoginForm = () => (
           <button type="submit" disabled={isSubmitting}>
             Login
           </button>
-        </form>
+        </Form>
       );
     }}
   </Formik>
