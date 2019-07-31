@@ -11,6 +11,7 @@ import UserProfileCard from "./Components/UserProfileCard"
 import Form from "./Components/Form"
 import { Route, Link } from 'react-router-dom'
 import TabNav from "./Components/TabNav"
+import SignUpForm from "./SignUpForm/SignUpForm";
 
 
 
@@ -41,19 +42,21 @@ function App() {
       <Link to="/login"> Login</Link>
       <Link to="/createprofile"> Create Profile</Link>
       <Link to="/myprofile">My Profile </Link>
-      
-     
-      <Route exact path="/createprofile" 
-             render={props => <Form  {...props} submitUsers = {addUser}/>}/>
-      <Route exact path="/myprofile" 
-             render={props => users.map(person => <UserProfileCard person={person}/>)}/>
+      <Link to="/signup">Sign Up</Link>
+
+
+      <Route exact path="/createprofile"
+        render={props => <Form  {...props} submitUsers={addUser} />} />
+      <Route exact path="/myprofile"
+        render={props => users.map(person => <UserProfileCard person={person} />)} />
       <Route exact path="/editprofile/:id"
-             render={props => {
-               console.log(props)
-               const person = users.find(person => person.id.toString() === props.match.params.id)
-               return  <Form {...props} initialPerson = {person} submitUsers = {editPerson}/>
-             }}/>
-      <Route exact path="/login" component = {LoginForm}/>
+        render={props => {
+          console.log(props)
+          const person = users.find(person => person.id.toString() === props.match.params.id)
+          return <Form {...props} initialPerson={person} submitUsers={editPerson} />
+        }} />
+      <Route exact path="/login" component={LoginForm} />
+      <Route exact path="/signup" component={SignUpForm} />
 
 
 
@@ -62,4 +65,3 @@ function App() {
 }
 
 export default App;
-
