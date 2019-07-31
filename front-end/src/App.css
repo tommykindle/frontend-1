@@ -31,19 +31,3 @@
     transform: rotate(360deg);
   }
 }
-
-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 500px;
-  justify-items: center; 
-}
-
-form input {
-  margin: 5px;
-}
-
-form button {
-  width: 30%;
-}
-
