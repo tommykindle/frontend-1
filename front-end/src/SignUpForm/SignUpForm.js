@@ -10,7 +10,7 @@ const SignUpForm = () => (
     initialValues={{ email: "", password: "" }}
     onSubmit={(values, { setSubmitting }) => {
       console.log(values);
-      axios.post("https://bw-friendfinder.herokuapp.com/createnewuser", `${values.email}&password=${values.password}`, {
+      axios.post("https://bw-friendfinder.herokuapp.com/createnewuser", values, {
 
       })
         .then(res => {
@@ -57,16 +57,16 @@ const SignUpForm = () => (
               <p>Welcome: Please Sign Up </p>
               <label htmlFor="email">Email</label>
               <input
-                name="email"
+                name="username"
                 type="text"
                 placeholder="Enter your email"
-                value={values.email}
+                value={values.username}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={errors.email && touched.email && "error"}
+                className={errors.username && touched.username && "error"}
               />
-              {errors.email && touched.email && (
-                <div className="input-feedback">{errors.email}</div>
+              {errors.username && touched.username && (
+                <div className="input-feedback">{errors.username}</div>
               )}
               <label htmlFor="email">Password</label>
               <input
