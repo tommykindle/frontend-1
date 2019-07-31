@@ -9,9 +9,9 @@ const LoginForm = () => (
   <Formik
     initialValues={{ email: "", password: "" }}
     onSubmit={(values, { setSubmitting }) => {
-      axios.post("https://bw-money-backend.herokuapp.com/createnewuser", `grant_type=password&username=${values.email}&password=${values.password}`, {
+      axios.post("https://bw-friendfinder.herokuapp.com/login", `grant_type=password&username=${values.email}&password=${values.password}`, {
         headers: {
-          Authorization: `Basic ${btoa('lambda-client:lambda-secret')}`,
+          Authorization: `Basic ${btoa('lambda-client-g:lambda-secret-g')}`,
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       })
