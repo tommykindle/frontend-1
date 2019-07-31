@@ -1,9 +1,13 @@
 import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
+
 import UserProfileCard from "./Components/UserProfileCard"
 import Form from "./Components/Form"
 import {Route, Link} from 'react-router-dom'
+
+import LoginForm from './LoginForm/LoginForm';
+
 
 function App() {
   const [users, setUsers] = useState([
@@ -26,6 +30,7 @@ function App() {
 
   return (
     <div className="App">
+
       <Link to="/">User Profile </Link>
       <Link to="/add"> Add User</Link>
       <Route path="/add" 
@@ -38,6 +43,9 @@ function App() {
                const person = users.find(person => person.id.toString() === props.match.params.id)
                return  <Form {...props} initialPerson = {person} submitUsers = {editPerson}/>
              }}/>
+
+      <LoginForm />
+
     </div>
   );
 }
