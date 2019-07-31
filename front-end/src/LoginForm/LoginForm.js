@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as EmailValidator from "email-validator";
 import * as Yup from "yup";
 import './LoginForm.scss';
@@ -29,19 +29,17 @@ const LoginForm = () => (
         setSubmitting(false);
       }, 500);
     }}
-    //(?=.*[!@#$%^&*])
-    //(?=.*[A-Z])
-    //(?=.{8,})
-    //(?=.*[!@#$%^&*])(?=.*[a-z])
-
     validationSchema={Yup.object().shape({
       email: Yup.string()
         .email()
         .required("Required"),
+
       password: Yup.string()
+
         .required("No password provided.")
         .min(8, "Password is too short - should be 8 chars minimum.")
         .matches(/(^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.{8,}))/, "Password must contain at least one uppercase character and one special character")
+
     })}
   >
     {props => {
