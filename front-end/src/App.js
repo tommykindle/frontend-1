@@ -1,12 +1,19 @@
+
+
+import "./App.css";
+import LoginForm from "./LoginForm/LoginForm";
+import CurrentPosistion from "./CurrentPosistion";
+
 import React, {useState} from 'react';
-import './App.css';
+
 
 import UserProfileCard from "./Components/UserProfileCard"
 import Form from "./Components/Form"
 import {Route, Link} from 'react-router-dom'
 import TabNav from "./Components/TabNav"
 
-import LoginForm from './LoginForm/LoginForm';
+
+
 
 
 function App() {
@@ -32,19 +39,24 @@ function App() {
 
   return (
     <div className="App">
-      <Link to="/">My Profile </Link>
-      <Link to="/add"> Create Profile</Link>
-      <Route path="/add" 
+      <Link to="/login"> Login</Link>
+      <Link to="/createprofile"> Create Profile</Link>
+      <Link to="/myprofile">My Profile </Link>
+      
+     
+      <Route exact path="/createprofile" 
              render={props => <Form  {...props} submitUsers = {addUser}/>}/>
-      <Route exact path="/" 
+      <Route exact path="/myprofile" 
              render={props => users.map(person => <UserProfileCard person={person}/>)}/>
-      <Route path="/edit/:id"
+      <Route exact path="/editprofile/:id"
              render={props => {
                console.log(props)
                const person = users.find(person => person.id.toString() === props.match.params.id)
                return  <Form {...props} initialPerson = {person} submitUsers = {editPerson}/>
              }}/>
-      <TabNav/>
+      <Route exact path="/login" component = {LoginForm}/>
+
+
     </div>
   );
 }

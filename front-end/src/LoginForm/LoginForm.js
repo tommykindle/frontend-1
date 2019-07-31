@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as EmailValidator from "email-validator";
 import * as Yup from "yup";
 import './LoginForm.scss';
@@ -29,8 +29,6 @@ const LoginForm = () => (
         setSubmitting(false);
       }, 500);
     }}
-
-
     validationSchema={Yup.object().shape({
       email: Yup.string()
         // .email()
