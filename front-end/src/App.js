@@ -1,25 +1,25 @@
-<<<<<<< HEAD
-import React from "react";
+
+
 import "./App.css";
 import LoginForm from "./LoginForm/LoginForm";
 import CurrentPosistion from "./CurrentPosistion";
-=======
+
 import React, {useState} from 'react';
-import logo from './logo.svg';
-import './App.css';
+
 
 import UserProfileCard from "./Components/UserProfileCard"
 import Form from "./Components/Form"
 import {Route, Link} from 'react-router-dom'
+import TabNav from "./Components/TabNav"
 
 import LoginForm from './LoginForm/LoginForm';
->>>>>>> 2c76bb487bae93cb7f99cc865a2fa2d38bc93e2a
+
 
 
 function App() {
   const [users, setUsers] = useState([
-    {id:0, name: "Hong", email: "hong@123"},
-    {id:1, name: "Tom", email: "tom@456"}
+    {id:0, gender: "Female", interest: "Biking", description: "Crazy girl who loves adventures"},
+    {id:1, number: "Male", interest: "Board Game", description: "Cool Nerd"}
   ])
 
   const addUser = person => {
@@ -30,16 +30,17 @@ function App() {
     const usersCopy = [...users];
     const oldPerson = usersCopy.find(person => person.id === editedPerson.id )
     console.log(oldPerson, editedPerson)
-    oldPerson.name = editedPerson.name;
-    oldPerson.email = editedPerson.email;
+    oldPerson.gender = editedPerson.gender;
+    oldPerson.interest = editedPerson.interest;
+    oldPerson.description = editedPerson.description;
+    // Object.assign(oldPerson, editedPerson);
     setUsers(usersCopy)
   }
 
   return (
     <div className="App">
-
-      <Link to="/">User Profile </Link>
-      <Link to="/add"> Add User</Link>
+      <Link to="/">My Profile </Link>
+      <Link to="/add"> Create Profile</Link>
       <Route path="/add" 
              render={props => <Form  {...props} submitUsers = {addUser}/>}/>
       <Route exact path="/" 
@@ -51,12 +52,15 @@ function App() {
                return  <Form {...props} initialPerson = {person} submitUsers = {editPerson}/>
              }}/>
 
-      <LoginForm />
-<<<<<<< HEAD
-      <CurrentPosistion />
-=======
 
->>>>>>> 2c76bb487bae93cb7f99cc865a2fa2d38bc93e2a
+      <LoginForm />
+
+
+
+
+
+      <TabNav/>
+
     </div>
   );
 }

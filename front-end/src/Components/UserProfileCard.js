@@ -6,9 +6,10 @@ const UserProfileCard = (props) => {
 
     return (
         <div>
-            <div>{props.person.name}</div>
-            <div>{props.person.email}</div>
-            <Link to={`/edit/${props.person.id}`}>Edit</Link>
+            <div>{props.person.gender}</div>
+            <div>{props.person.interest}</div>
+            <div>{props.person.description}</div>
+            <Link to={`/edit/${props.person.id}`}>Edit Profile</Link>
         </div>
     )
 }
