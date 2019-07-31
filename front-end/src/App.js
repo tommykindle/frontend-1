@@ -1,5 +1,11 @@
+
+
+import "./App.css";
+import LoginForm from "./LoginForm/LoginForm";
+import CurrentPosistion from "./CurrentPosistion";
+
 import React, {useState} from 'react';
-import './App.css';
+
 
 import UserProfileCard from "./Components/UserProfileCard"
 import Form from "./Components/Form"
@@ -7,6 +13,7 @@ import {Route, Link} from 'react-router-dom'
 import TabNav from "./Components/TabNav"
 
 import LoginForm from './LoginForm/LoginForm';
+
 
 
 function App() {
@@ -44,7 +51,16 @@ function App() {
                const person = users.find(person => person.id.toString() === props.match.params.id)
                return  <Form {...props} initialPerson = {person} submitUsers = {editPerson}/>
              }}/>
+
+
+      <LoginForm />
+
+
+
+
+
       <TabNav/>
+
     </div>
   );
 }
