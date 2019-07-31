@@ -13,9 +13,6 @@ import {Route, Link} from 'react-router-dom'
 import TabNav from "./Components/TabNav"
 
 
-
-
-
 function App() {
   const [users, setUsers] = useState([
     {id:0, gender: "Female", interest: "Biking", description: "Crazy girl who loves adventures"},

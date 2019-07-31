@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom'
+import {browserHistory} from 'react-router'
 
 const Form = (props) => {
     console.log('props', props)
@@ -10,7 +12,9 @@ const Form = (props) => {
     const handleSubmit = event => {
         event.preventDefault();
         submitUsers(person);
-        setPerson({gender: "", interest: "", description: ""})
+        setPerson({gender: "", interest: "", description: ""});
+        browserHistory.push('/myprofile')
+        
     }
     return (
         <form onSubmit = {handleSubmit}>
@@ -37,7 +41,9 @@ const Form = (props) => {
             onChange={handleChange}
             />
             </label>
-            <button type="submit">Save & Continue</button>
+            {/* <Link to="/myprofile"> */}
+                <button >Save & Continue</button>
+            {/* </Link> */}
         </form>
     )
 }
