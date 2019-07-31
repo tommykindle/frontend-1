@@ -2,19 +2,28 @@ import React from "react";
 import { Formik } from "formik";
 import * as EmailValidator from "email-validator";
 import * as Yup from "yup";
-import './LoginForm.scss';
+import '../SignUpForm/SignUpForm';
 import axios from 'axios';
 
-const SignUpForm = () => (
-  <Formik
+
+
+
+const SignUpForm = (props) => (
+
+  < Formik
     initialValues={{ email: "", password: "" }}
     onSubmit={(values, { setSubmitting }) => {
-      axios.post("https://bw-friendfinder.herokuapp.com/createnewuser", `${values.email}&password=${values.password}`, {
+      console.log(values);
+      const submitValues = { username: values.email, password: values.password }
+      console.log(submitValues);
+      axios.post("https://bw-friendfinder.herokuapp.com/createnewuser", submitValues, {
 
       })
         .then(res => {
           console.log('Result', res)
           localStorage.setItem("token", res.data.access_token)
+          props.history.push('/createprofile')
+
 
         })
         .catch(err => {
@@ -25,18 +34,22 @@ const SignUpForm = () => (
         console.log("Logging in", values);
         setSubmitting(false);
       }, 500);
+
+
     }}
 
 
-    validationSchema={Yup.object().shape({
-      email: Yup.string()
-        .email()
-        .required("Required"),
-      password: Yup.string()
-        .required("No password provided.")
-        .min(8, "Password  should be 8 chars minimum.")
-        .matches(/(^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.{8,}))/, "Password must contain at least one uppercase character and one special character")
-    })}
+    validationSchema={
+      Yup.object().shape({
+        email: Yup.string()
+          .email()
+          .required("Required"),
+        password: Yup.string()
+          .required("No password provided.")
+          .min(8, "Password  should be 8 chars minimum.")
+          .matches(/(^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.{8,}))/, "Password must contain at least one uppercase character and one special character")
+      })
+    }
   >
     {props => {
       const {
@@ -80,17 +93,14 @@ const SignUpForm = () => (
               {errors.password && touched.password && (
                 <div className="input-feedback">{errors.password}</div>
               )}
-              <button type="submit" disabled={isSubmitting}>
-                Login
-          </button>
-              <button type="submit" formAction="/">
+              <button type="submit" formAction="/createprofile">
                 SignUp</button>
             </div>
           </form>
         </div>
       );
     }}
-  </Formik>
+  </Formik >
 );
 
 export default SignUpForm;
