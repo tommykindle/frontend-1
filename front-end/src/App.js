@@ -3,6 +3,7 @@ import './App.css';
 import UserProfileCard from "./Components/UserProfileCard"
 import Form from "./Components/Form"
 import {Route, Link} from 'react-router-dom'
+import TabNav from "./Components/TabNav"
 
 function App() {
   const [users, setUsers] = useState([
@@ -39,6 +40,7 @@ function App() {
                const person = users.find(person => person.id.toString() === props.match.params.id)
                return  <Form {...props} initialPerson = {person} submitUsers = {editPerson}/>
              }}/>
+      <TabNav/>
     </div>
   );
 }
