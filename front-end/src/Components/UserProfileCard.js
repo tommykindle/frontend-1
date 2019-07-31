@@ -9,7 +9,7 @@ const UserProfileCard = (props) => {
             <div>{props.person.gender}</div>
             <div>{props.person.interest}</div>
             <div>{props.person.description}</div>
-            <Link to={`/edit/${props.person.id}`}>Edit Profile</Link>
+            <Link to={`/editprofile/${props.person.id}`}>Edit Profile</Link>
         </div>
     )
 }

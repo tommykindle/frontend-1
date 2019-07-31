@@ -38,30 +38,28 @@ function App() {
 
   return (
     <div className="App">
-      <Link to="/">My Profile </Link>
-      <Link to="/add"> Create Profile</Link>
-      <Route path="/add"
-        render={props => <Form  {...props} submitUsers={addUser} />} />
-      <Route exact path="/"
-        render={props => users.map(person => <UserProfileCard person={person} />)} />
-      <Route path="/edit/:id"
-        render={props => {
-          console.log(props)
-          const person = users.find(person => person.id.toString() === props.match.params.id)
-          return <Form {...props} initialPerson={person} submitUsers={editPerson} />
-        }} />
+      <Link to="/login"> Login</Link>
+      <Link to="/createprofile"> Create Profile</Link>
+      <Link to="/myprofile">My Profile </Link>
+      
+     
+      <Route exact path="/createprofile" 
+             render={props => <Form  {...props} submitUsers = {addUser}/>}/>
+      <Route exact path="/myprofile" 
+             render={props => users.map(person => <UserProfileCard person={person}/>)}/>
+      <Route exact path="/editprofile/:id"
+             render={props => {
+               console.log(props)
+               const person = users.find(person => person.id.toString() === props.match.params.id)
+               return  <Form {...props} initialPerson = {person} submitUsers = {editPerson}/>
+             }}/>
+      <Route exact path="/login" component = {LoginForm}/>
 
 
-      <LoginForm />
-
-
-
-
-
-      <TabNav />
 
     </div>
   );
 }
 
 export default App;
+
