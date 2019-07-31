@@ -1,33 +1,43 @@
 import React, {useState} from 'react';
-import UserProfileCard from './UserProfileCard';
 
 const Form = (props) => {
     console.log('props', props)
     const {submitUsers, initialPerson} = props
-    const [person, setPerson] = useState(initialPerson || {name: "", email: ""})
+    const [person, setPerson] = useState(initialPerson || {gender: "", interest: "", description: ""})
     const handleChange = event => {
         setPerson({...person, [event.target.name]: event.target.value
     })}
     const handleSubmit = event => {
         event.preventDefault();
         submitUsers(person);
-        setPerson({name: "", email: ""})
+        setPerson({gender: "", interest: "", description: ""})
     }
     return (
         <form onSubmit = {handleSubmit}>
-            <input placeholder="name" 
-            value={person.name}
-            name= "name"
-            onChange={handleChange}
-            
+            <label>My gender
+            <input placeholder="Female/Male/Other" 
+            value={person.gender}
+            name= "gender"
+            onChange={handleChange} 
             />
-            <input placeholder="email" 
-            value={person.email}
-            name= "email"
+
+            </label>
+            <label>My interests
+            <input placeholder="Hiking" 
+            value={person.interest}
+            name= "interest"
             onChange={handleChange}
-            
             />
-            <button type="submit">Continue</button>
+            </label>
+
+            <label>About me
+            <input placeholder="I am an extrovert..." 
+            value={person.description}
+            name= "description"
+            onChange={handleChange}
+            />
+            </label>
+            <button type="submit">Save & Continue</button>
         </form>
     )
 }
