@@ -9,15 +9,17 @@ import React, {useState, useEffect} from 'react';
 
 import UserProfileCard from "./Components/UserProfileCard"
 import Form from "./Components/Form"
-import {Route, Link} from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import TabNav from "./Components/TabNav"
-import Axios from "axios";
+import SignUpForm from "./SignUpForm/SignUpForm";
+
+
 
 
 function App() {
   const [users, setUsers] = useState([
-    {id:0, gender: "Female", interest: "Biking", description: "Crazy girl who loves adventures"},
-    {id:1, number: "Male", interest: "Board Game", description: "Cool Nerd"}
+    { id: 0, gender: "Female", interest: "Biking", description: "Crazy girl who loves adventures" },
+    { id: 1, number: "Male", interest: "Board Game", description: "Cool Nerd" }
   ])
 
   useEffect(()=>{
@@ -30,12 +32,12 @@ function App() {
     },[])
 
   const addUser = person => {
-    setUsers([...users, {...person, id: Date.now()}])
+    setUsers([...users, { ...person, id: Date.now() }])
   }
 
   const editPerson = editedPerson => {
     const usersCopy = [...users];
-    const oldPerson = usersCopy.find(person => person.id === editedPerson.id )
+    const oldPerson = usersCopy.find(person => person.id === editedPerson.id)
     console.log(oldPerson, editedPerson)
     oldPerson.gender = editedPerson.gender;
     oldPerson.interest = editedPerson.interest;
@@ -49,19 +51,22 @@ function App() {
       <Link to="/login"> Login</Link>
       <Link to="/createprofile"> Create Profile</Link>
       <Link to="/myprofile">My Profile </Link>
-      
-     
-      <Route exact path="/createprofile" 
-             render={props => <Form  {...props} submitUsers = {addUser}/>}/>
-      <Route exact path="/myprofile" 
-             render={props => users.map(person => <UserProfileCard person={person}/>)}/>
+      <Link to="/signup">Sign Up</Link>
+
+
+      <Route exact path="/createprofile"
+        render={props => <Form  {...props} submitUsers={addUser} />} />
+      <Route exact path="/myprofile"
+        render={props => users.map(person => <UserProfileCard person={person} />)} />
       <Route exact path="/editprofile/:id"
-             render={props => {
-               console.log(props)
-               const person = users.find(person => person.id.toString() === props.match.params.id)
-               return  <Form {...props} initialPerson = {person} submitUsers = {editPerson}/>
-             }}/>
-      <Route exact path="/login" component = {LoginForm}/>
+        render={props => {
+          console.log(props)
+          const person = users.find(person => person.id.toString() === props.match.params.id)
+          return <Form {...props} initialPerson={person} submitUsers={editPerson} />
+        }} />
+      <Route exact path="/login" component={LoginForm} />
+      <Route exact path="/signup" component={SignUpForm} />
+
 
 
     </div>
@@ -69,5 +74,3 @@ function App() {
 }
 
 export default App;
-
-
