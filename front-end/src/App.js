@@ -4,13 +4,14 @@ import "./App.css";
 import LoginForm from "./LoginForm/LoginForm";
 import CurrentPosistion from "./CurrentPosistion";
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 
 import UserProfileCard from "./Components/UserProfileCard"
 import Form from "./Components/Form"
 import {Route, Link} from 'react-router-dom'
 import TabNav from "./Components/TabNav"
+import Axios from "axios";
 
 
 function App() {
@@ -18,6 +19,15 @@ function App() {
     {id:0, gender: "Female", interest: "Biking", description: "Crazy girl who loves adventures"},
     {id:1, number: "Male", interest: "Board Game", description: "Cool Nerd"}
   ])
+
+  useEffect(()=>{
+    const token = localStorage.getItem('token')
+    Axios
+        .get(`http://bw-friendfinder.herokuapp.com/users/currentuser`, 
+        {headers: {Authorization: `Bearer ${token}`}}) 
+        .then(response =>
+          console.log('response for id', response))
+    },[])
 
   const addUser = person => {
     setUsers([...users, {...person, id: Date.now()}])
