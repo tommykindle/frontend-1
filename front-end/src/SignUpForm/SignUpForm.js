@@ -9,6 +9,7 @@ const SignUpForm = () => (
   <Formik
     initialValues={{ email: "", password: "" }}
     onSubmit={(values, { setSubmitting }) => {
+      console.log(values);
       axios.post("https://bw-friendfinder.herokuapp.com/createnewuser", `${values.email}&password=${values.password}`, {
 
       })
