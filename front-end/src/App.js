@@ -51,9 +51,11 @@ function App() {
     const token = localStorage.getItem('token')
     Axios.post("/profiles/createprofile", person,
         {baseURL:"https://bw-friendfinder.herokuapp.com", headers:{Authorization: `Bearer ${token}`}})
-        .then(res => console.log(res))
+        .then(res => {
+          //added this here to get the current user with the new profile info 👍🏼
+          axiosRequest()})
         .catch(err => console.log('err:', err.response))
-        axiosRequest()
+    
     
   }
 
@@ -112,3 +114,4 @@ function App() {
 }
 
 export default App;
+
