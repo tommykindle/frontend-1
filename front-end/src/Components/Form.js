@@ -5,7 +5,8 @@ import Axios from 'axios'
 const Form = (props) => {
     console.log('props', props)
     const {submitUsers, initialPerson} = props
-    const [person, setPerson] = useState(initialPerson || {gender: "", interest: "", description: ""})
+    const [userId, setUserId] = useState([])
+    const [person, setPerson] = useState(initialPerson || { gender: "", interest: "", description: ""})
     const handleChange = event => {
         setPerson({...person, [event.target.name]: event.target.value
     })}
@@ -21,9 +22,14 @@ const Form = (props) => {
         Axios
         .get("/users/currentuser", 
             {baseURL:"https://bw-friendfinder.herokuapp.com", headers:{Authorization: `Bearer ${token}`}})
-        .then(response => console.log('response test', response))
+        .then(response => 
+            console.log('response test', response)
+            // setUserId(response.data.userid)
+            )
         .catch(err => console.log('err', err))
       },[])
+    
+    
 
     return (
         <form onSubmit = {handleSubmit}>

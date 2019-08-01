@@ -32,9 +32,9 @@ function App() {
         {baseURL:"https://bw-friendfinder.herokuapp.com", headers:{Authorization: `Bearer ${token}`}})
     .then(
       response => 
-      
+      // console.log('response new', response)
       // {const id = response.data.userid})
-      setId(response.data)
+      setId(response.data.userid)
       // setUsers(response)
       )
     .catch(err => console.log('err', err))
@@ -42,7 +42,7 @@ function App() {
 
   console.log('id',id)
   const addUser = person => {
-    setUsers([...users, { ...person, id: id.userid}])
+    setUsers([...users, { ...person, id: id}])
   }
 
   const editPerson = editedPerson => {
@@ -55,12 +55,12 @@ function App() {
     // Object.assign(oldPerson, editedPerson);
     setUsers(usersCopy)
   }
-  
+
 
   return (
     <div className="App">
-      <Link to="/login"> Login</Link>
       <Link to="/signup">  Sign Up</Link>
+      <Link to="/login"> Login</Link>
       <Link to="/createprofile">   Create Profile</Link>
       <Link to="/myprofile">  My Profile </Link>
       
@@ -69,7 +69,13 @@ function App() {
       <Route exact path="/createprofile"
         render={props => <Form  {...props} submitUsers={addUser} />} />
       <Route exact path="/myprofile"
-        render={props => users.map(person => <UserProfileCard person={person} />)} />
+        render={props => {
+          const person = users.find(person => {
+            console.log('find',person.id)
+          return person.id === id 
+          })
+          return <UserProfileCard {...props} person={person}/>
+        } }/>
       <Route exact path="/editprofile/:id"
         render={props => {
           console.log(props)

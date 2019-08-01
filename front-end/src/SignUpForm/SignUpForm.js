@@ -21,14 +21,13 @@ const SignUpForm = (props) => (
       })
         .then(res => {
           console.log('Result', res)
-          localStorage.setItem("token", res.data.access_token)
-          props.history.push('/createprofile')
+          props.history.push('/login')
 
 
         })
         .catch(err => {
 
-          console.log(err)
+          console.log('signup err', err.response)
         })
       setTimeout(() => {
         console.log("Logging in", values);

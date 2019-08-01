@@ -1,11 +1,11 @@
 import React from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik } from "formik";
 import * as EmailValidator from "email-validator";
 import * as Yup from "yup";
 import './LoginForm.scss';
 import axios from 'axios';
 
-const LoginForm = () => (
+const LoginForm = (props) => (
   <Formik
     initialValues={{ email: "", password: "" }}
     onSubmit={(values, { setSubmitting }) => {
@@ -18,7 +18,7 @@ const LoginForm = () => (
         .then(res => {
           console.log('Result', res)
           localStorage.setItem("token", res.data.access_token)
-
+          props.history.push('/createprofile')
         })
         .catch(err => {
 
@@ -85,8 +85,6 @@ const LoginForm = () => (
               <button type="submit" disabled={isSubmitting}>
                 Login
           </button>
-              <button type="submit" formAction="/">
-                SignUp</button>
             </div>
           </form>
         </div>
