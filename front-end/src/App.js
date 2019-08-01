@@ -17,32 +17,46 @@ import SignUpForm from "./SignUpForm/SignUpForm";
 
 
 function App() {
-  const [id, setId] = useState([])
-  const [users, setUsers] = useState([
-    { id: 0, gender: "Female", interest: "Biking", description: "Crazy girl who loves adventures" },
-    { id: 1, number: "Male", interest: "Board Game", description: "Cool Nerd" }
-  ])
 
+  const [users, setUsers] = useState([])
+  const [currentUser, setUser] = useState()
   
+  console.log('users state', users)
+
+  const axiosRequest = () => {
+    const token = localStorage.getItem('token')
+
+    Axios.all([
+      Axios.get("/users/currentuser", 
+        {baseURL:"https://bw-friendfinder.herokuapp.com", headers:{Authorization: `Bearer ${token}`}}),
+      Axios.get("/profiles/profiles", 
+        {baseURL:"https://bw-friendfinder.herokuapp.com", headers:{Authorization: `Bearer ${token}`}})
+    ])
+    .then(Axios.spread((currentUser, profiles) => {
+      console.log('cUser', currentUser)
+      console.log('users', profiles.data)
+      setUsers(profiles.data)
+      setUser(currentUser.data)
+    }))
+    .catch(err => console.log('err', err))
+  }
 
   useEffect(()=> {
-    const token = localStorage.getItem('token')
-    Axios
-    .get("/users/currentuser", 
-        {baseURL:"https://bw-friendfinder.herokuapp.com", headers:{Authorization: `Bearer ${token}`}})
-    .then(
-      response => 
-      // console.log('response new', response)
-      // {const id = response.data.userid})
-      setId(response.data.userid)
-      // setUsers(response)
-      )
-    .catch(err => console.log('err', err))
+    axiosRequest()
   },[])
 
-  console.log('id',id)
+  // console.log('id',id)
+
   const addUser = person => {
-    setUsers([...users, { ...person, id: id}])
+    const token = localStorage.getItem('token')
+    Axios.post("/profiles/createprofile", person,
+        {baseURL:"https://bw-friendfinder.herokuapp.com", headers:{Authorization: `Bearer ${token}`}})
+        .then(res => {
+          //added this here to get the current user with the new profile info 👍🏼
+          axiosRequest()})
+        .catch(err => console.log('err:', err.response))
+    
+    
   }
 
   const editPerson = editedPerson => {
@@ -70,11 +84,20 @@ function App() {
         render={props => <Form  {...props} submitUsers={addUser} />} />
       <Route exact path="/myprofile"
         render={props => {
-          const person = users.find(person => {
-            console.log('find',person.id)
-          return person.id === id 
-          })
-          return <UserProfileCard {...props} person={person}/>
+          if(currentUser ) {
+            // looking through profiles
+            // const person = users.find(profile => {
+            //   console.log('person',profile)
+            //   //profile id has to be equal to profile id
+            // return profile.profileid === currentUser.profile.profileid 
+            // })
+            return <UserProfileCard {...props} person={currentUser.profile}/>
+            
+          } else {
+            return <h1>Create a profile</h1>
+          }
+          
+          
         } }/>
       <Route exact path="/editprofile/:id"
         render={props => {
@@ -86,9 +109,9 @@ function App() {
       <Route exact path="/signup" component={SignUpForm} />
 
  
-
     </div>
   );
 }
 
 export default App;
+
