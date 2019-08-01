@@ -21,8 +21,7 @@ const SignUpForm = (props) => (
       })
         .then(res => {
           console.log('Result', res)
-          localStorage.setItem("token", res.data.access_token)
-          props.history.push('/createprofile')
+          props.history.push('/login')
 
 
         })
