@@ -14,21 +14,20 @@ const SignUpForm = (props) => (
     initialValues={{ email: "", password: "" }}
     onSubmit={(values, { setSubmitting }) => {
       console.log(values);
-      const submitValues = { username: values.email, password: values.password }
+      const submitValues = { 'username': values.email, 'password': values.password }
       console.log(submitValues);
-      axios.post("https://bw-friendfinder.herokuapp.com/createnewuser", submitValues, {
-
-      })
+      axios.post("https://bw-friendfinder.herokuapp.com/createnewuser", submitValues)
+        .then(res => axios.post("https://bw-friendfinder.herokuapp.com/login", `grant_type=password&username=${submitValues["username"]}&password=${submitValues["password"]}`, {
+          headers: {
+            Authorization: `Basic ${btoa('lambda-client-g:lambda-secret-g')}`,
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        }))
         .then(res => {
-          console.log('Result', res)
-          props.history.push('/login')
-
-
+          console.log(res)
+          props.history.push("/createprofile")
         })
-        .catch(err => {
-
-          console.log(err)
-        })
+        .catch(err => console.log(err))
       setTimeout(() => {
         console.log("Logging in", values);
         setSubmitting(false);
