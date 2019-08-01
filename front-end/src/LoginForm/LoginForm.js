@@ -38,7 +38,7 @@ const LoginForm = () => (
 
         .required("No password provided.")
         .min(8, "Password is too short - should be 8 chars minimum.")
-        .matches(/(^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.{8,}))/, "Password must contain at least one uppercase character and one special character")
+        // .matches(/(?=.*[!@#\$%\^&\*]) (?=.*[A-Z])/, "Password must contain at least one uppercase character and one special character")
     })}
   >
     {props => {

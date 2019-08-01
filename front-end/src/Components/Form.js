@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import Axios from 'axios'
+
 
 const Form = (props) => {
     console.log('props', props)
@@ -10,8 +12,19 @@ const Form = (props) => {
     const handleSubmit = event => {
         event.preventDefault();
         submitUsers(person);
-        setPerson({gender: "", interest: "", description: ""})
+        setPerson({gender: "", interest: "", description: ""});
+        props.history.push('/myprofile')
+        
     }
+    useEffect(()=> {
+        const token = localStorage.getItem('token')
+        Axios
+        .get("/users/currentuser", 
+            {baseURL:"https://bw-friendfinder.herokuapp.com", headers:{Authorization: `Bearer ${token}`}})
+        .then(response => console.log('response test', response))
+        .catch(err => console.log('err', err))
+      },[])
+
     return (
         <form onSubmit = {handleSubmit}>
             <label>My gender
@@ -37,7 +50,7 @@ const Form = (props) => {
             onChange={handleChange}
             />
             </label>
-            <button type="submit">Save & Continue</button>
+            <button >Save & Continue</button>
         </form>
     )
 }
