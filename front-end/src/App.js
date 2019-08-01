@@ -5,7 +5,7 @@ import LoginForm from "./LoginForm/LoginForm";
 import CurrentPosistion from "./CurrentPosistion";
 
 import React, {useState, useEffect} from 'react';
-
+import Axios from 'axios'
 
 import UserProfileCard from "./Components/UserProfileCard"
 import Form from "./Components/Form"
@@ -22,14 +22,23 @@ function App() {
     { id: 1, number: "Male", interest: "Board Game", description: "Cool Nerd" }
   ])
 
-  useEffect(()=>{
+  // useEffect(()=>{
+  //   const token = localStorage.getItem('token')
+  //   Axios
+  //       .get(`http://bw-friendfinder.herokuapp.com/users/currentuser`,{headers: {Authorization: `Bearer ${token}`}}) 
+  //       .then(response =>
+  //         console.log('response for id', response))
+  //         .catch(err => console.log('err', err))
+  //   },[])
+
+  useEffect(()=> {
     const token = localStorage.getItem('token')
     Axios
-        .get(`http://bw-friendfinder.herokuapp.com/users/currentuser`, 
-        {headers: {Authorization: `Bearer ${token}`}}) 
-        .then(response =>
-          console.log('response for id', response))
-    },[])
+    .get("/users/currentuser", 
+        {baseURL:"https://bw-friendfinder.herokuapp.com", headers:{Authorization: `Bearer ${token}`}})
+    .then(response => console.log('response test', response))
+    .catch(err => console.log('err', err))
+  },[])
 
   const addUser = person => {
     setUsers([...users, { ...person, id: Date.now() }])
@@ -49,9 +58,10 @@ function App() {
   return (
     <div className="App">
       <Link to="/login"> Login</Link>
-      <Link to="/createprofile"> Create Profile</Link>
-      <Link to="/myprofile">My Profile </Link>
-      <Link to="/signup">Sign Up</Link>
+      <Link to="/signup">  Sign Up</Link>
+      <Link to="/createprofile">   Create Profile</Link>
+      <Link to="/myprofile">  My Profile </Link>
+      
 
 
       <Route exact path="/createprofile"

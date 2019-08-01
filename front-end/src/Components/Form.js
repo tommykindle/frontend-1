@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import Axios from 'axios'
 
 
 const Form = (props) => {
@@ -15,6 +16,15 @@ const Form = (props) => {
         props.history.push('/myprofile')
         
     }
+    useEffect(()=> {
+        const token = localStorage.getItem('token')
+        Axios
+        .get("/users/currentuser", 
+            {baseURL:"https://bw-friendfinder.herokuapp.com", headers:{Authorization: `Bearer ${token}`}})
+        .then(response => console.log('response test', response))
+        .catch(err => console.log('err', err))
+      },[])
+
     return (
         <form onSubmit = {handleSubmit}>
             <label>My gender
