@@ -9,10 +9,10 @@ export default function Navbar() {
     <div>
       <ul>
         <li>
-          ​ <Link to="/login"> Login</Link>​
+          ​ <Link to="/signup"> Sign Up</Link>​
         </li>
         <li>
-          ​ <Link to="/signup"> Sign Up</Link>​
+          ​ <Link to="/login"> Login</Link>​
         </li>
         <li>
           ​ <Link to="/createprofile"> Create Profile</Link>​
