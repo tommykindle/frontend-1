@@ -5,15 +5,30 @@ import Axios from 'axios'
 const Form = (props) => {
     console.log('props', props)
     const {submitUsers, initialPerson} = props
-    const [person, setPerson] = useState(initialPerson || {gender: "", interest: "", description: ""})
+    const [userId, setUserId] = useState([])
+    const [person, setPerson] = useState(initialPerson || {
+        name: "",
+        gender: "", 
+        // interest: "",
+        description: ""
+        })
+        
     const handleChange = event => {
         setPerson({...person, [event.target.name]: event.target.value
     })}
     const handleSubmit = event => {
         event.preventDefault();
         submitUsers(person);
-        setPerson({gender: "", interest: "", description: ""});
-        props.history.push('/myprofile')
+        setPerson({
+            name: "", 
+            gender: "", 
+            // interest: "", 
+            description: ""});
+
+        setTimeout(() => {
+            props.history.push('/myprofile')
+        }, 500);
+        
         
     }
     useEffect(()=> {
@@ -21,27 +36,42 @@ const Form = (props) => {
         Axios
         .get("/users/currentuser", 
             {baseURL:"https://bw-friendfinder.herokuapp.com", headers:{Authorization: `Bearer ${token}`}})
-        .then(response => console.log('response test', response))
+        .then(response => 
+            console.log('response test', response)
+            // setUserId(response.data.userid)
+            )
         .catch(err => console.log('err', err))
       },[])
+    
+    
 
     return (
         <form onSubmit = {handleSubmit}>
+            <label>My name
+            <input placeholder="Abc" 
+            value={person.name}
+            name= "name"
+            onChange={handleChange} 
+            />
+
+            </label>
+
             <label>My gender
             <input placeholder="Female/Male/Other" 
             value={person.gender}
             name= "gender"
             onChange={handleChange} 
             />
-
+            
             </label>
-            <label>My interests
+            
+            {/* <label>My interests
             <input placeholder="Hiking" 
             value={person.interest}
             name= "interest"
             onChange={handleChange}
             />
-            </label>
+            </label> */} 
 
             <label>About me
             <input placeholder="I am an extrovert..." 

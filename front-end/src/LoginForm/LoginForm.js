@@ -18,7 +18,7 @@ const LoginForm = (props) => (
         .then(res => {
           console.log('Result', res)
           localStorage.setItem("token", res.data.access_token)
-          props.history.push('/myprofile')
+          props.history.push('/createprofile')
         })
         .catch(err => {
 
