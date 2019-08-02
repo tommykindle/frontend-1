@@ -60,14 +60,22 @@ function App() {
   }
 
   const editPerson = editedPerson => {
-    const usersCopy = [...users];
-    const oldPerson = usersCopy.find(person => person.id === editedPerson.id)
-    console.log(oldPerson, editedPerson)
-    oldPerson.gender = editedPerson.gender;
-    oldPerson.interest = editedPerson.interest;
-    oldPerson.description = editedPerson.description;
+    const usersCopy = currentUser.profile;
+    console.log('usersCopy', usersCopy)
+    
+    // const oldPerson = usersCopy.find(person => person.profileid === editedPerson.profileid)
+    // console.log('oldPerson', oldPerson, 'editedPerson', editedPerson)
+    // oldPerson.name = editedPerson.name;
+    // oldPerson.gender = editedPerson.gender;
+    usersCopy.name = editedPerson.name;
+    usersCopy.gender = editedPerson.gender;
+    // oldPerson.interest = editedPerson.interest;
+    // oldPerson.description = editedPerson.description;
+    usersCopy.description = editedPerson.description;
     // Object.assign(oldPerson, editedPerson);
     setUsers(usersCopy)
+
+
   }
 
 
@@ -101,9 +109,9 @@ function App() {
         } }/>
       <Route exact path="/editprofile/:id"
         render={props => {
-          console.log(props)
-          const person = users.find(person => person.id.toString() === props.match.params.id)
-          return <Form {...props} initialPerson={person} submitUsers={editPerson} />
+          console.log('props in edit profile', props)
+          // const person = users.find(person => person.profileid.toString() === props.match.params.id)
+          return <Form {...props}  submitUsers={editPerson} />
         }} />
       <Route exact path="/login" component={LoginForm} />
       <Route exact path="/signup" component={SignUpForm} />

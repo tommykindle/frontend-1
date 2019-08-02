@@ -3,7 +3,7 @@ import Axios from 'axios'
 
 
 const Form = (props) => {
-    console.log('props', props)
+    console.log('props in form', props)
     const {submitUsers, initialPerson} = props
     const [userId, setUserId] = useState([])
     const [person, setPerson] = useState(initialPerson || {
