@@ -29,17 +29,17 @@ const LoginForm = (props) => (
         setSubmitting(false);
       }, 500);
     }}
-    validationSchema={Yup.object().shape({
-      email: Yup.string()
-        .email()
-        .required("Required"),
-
-      password: Yup.string()
-
-        .required("No password provided.")
-        .min(8, "Password is too short - should be 8 chars minimum.")
-        // .matches(/(?=.*[!@#\$%\^&\*]) (?=.*[A-Z])/, "Password must contain at least one uppercase character and one special character")
-    })}
+    validationSchema={
+      Yup.object().shape({
+        email: Yup.string()
+          .email()
+          .required("Required"),
+        password: Yup.string()
+          .required("No password provided.")
+          .min(8, "Password  should be 8 chars minimum.")
+          .matches(/(^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.{8,}))/, "Password must contain at least one uppercase character and one special character")
+      })
+    }
   >
     {props => {
       const {
