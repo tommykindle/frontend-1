@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 
 
 const UserProfileCard = (props) => {
-    console.log('props', props)
+    console.log('props in userprofile', props)
 
     if(props.person) {
         return (
